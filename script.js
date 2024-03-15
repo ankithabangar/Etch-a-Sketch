@@ -5,7 +5,17 @@ function createGrid() {
     const cell = document.createElement("div");
     cell.classList.add("cell");
     container.appendChild(cell);
-    console.log("One square formed");
   }
 }
 createGrid();
+
+const gridCells = container.querySelectorAll(".cell");
+
+gridCells.forEach((cell) => {
+  cell.addEventListener("mouseenter", (event) => {
+    event.target.style.backgroundColor = "black";
+  });
+  cell.addEventListener("mouseleave", (event) => {
+    event.target.style.backgroundColor = "black";
+  });
+});
