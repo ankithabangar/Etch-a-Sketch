@@ -1,21 +1,42 @@
-const container = document.querySelector(".container");
+const grid = document.querySelector(".grid");
+const editSize = document.querySelector(".gridSize");
 
-function createGrid() {
-  for (let i = 0; i < 273; i++) {
+function createGrid(size = 16) {
+  const containerWidth = 400; // Width of the container
+  const cellSize = containerWidth / size; // Calculate cell size
+
+  for (let i = 0; i < size * size; i++) {
     const cell = document.createElement("div");
     cell.classList.add("cell");
-    container.appendChild(cell);
+    cell.style.width = `${cellSize}px`; // Set width of cell
+    cell.style.height = `${cellSize}px`; // Set height of cell
+    grid.appendChild(cell);
+    draw(cell);
   }
 }
 createGrid();
 
-const gridCells = container.querySelectorAll(".cell");
+function removeGrid() {
+  grid.innerHTML = "";
+}
 
-gridCells.forEach((cell) => {
+function draw(cell) {
   cell.addEventListener("mouseenter", (event) => {
     event.target.style.backgroundColor = "black";
   });
   cell.addEventListener("mouseleave", (event) => {
-    event.target.style.backgroundColor = "black";
+    event.target.style.backgroundColor = "black"; // Restore default background color
   });
-});
+}
+
+function getGridSize() {
+  let size = prompt("Enter your grid size(max 100)");
+  if (size !== null && size !== "") {
+    size = parseInt(size);
+    size = Math.min(Math.max(size, 1), 100);
+    removeGrid();
+    createGrid(size);
+  }
+}
+
+editSize.addEventListener("click", getGridSize);
