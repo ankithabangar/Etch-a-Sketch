@@ -6,7 +6,7 @@ const defaultColor = document.querySelector(".black");
 let defaultColorFlag = true;
 
 function createGrid(size = 16) {
-  const containerWidth = 400; // Width of the container
+  const containerWidth = 500; // Width of the container
   const cellSize = containerWidth / size; // Calculate cell size
 
   for (let i = 0; i < size * size; i++) {
