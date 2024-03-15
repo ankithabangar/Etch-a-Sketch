@@ -1,5 +1,9 @@
 const grid = document.querySelector(".grid");
 const editSize = document.querySelector(".gridSize");
+const rgb = document.querySelector(".rgb");
+const cellList = document.querySelectorAll(".cell");
+const defaultColor = document.querySelector(".black");
+let defaultColorFlag = true;
 
 function createGrid(size = 16) {
   const containerWidth = 400; // Width of the container
@@ -11,7 +15,8 @@ function createGrid(size = 16) {
     cell.style.width = `${cellSize}px`; // Set width of cell
     cell.style.height = `${cellSize}px`; // Set height of cell
     grid.appendChild(cell);
-    draw(cell);
+    cell.addEventListener("mouseenter", handleMouse);
+    cell.addEventListener("mouseleave", handleMouse);
   }
 }
 createGrid();
@@ -20,13 +25,17 @@ function removeGrid() {
   grid.innerHTML = "";
 }
 
-function draw(cell) {
-  cell.addEventListener("mouseenter", (event) => {
+function handleMouse(event) {
+  if (defaultColorFlag) {
     event.target.style.backgroundColor = "black";
-  });
-  cell.addEventListener("mouseleave", (event) => {
-    event.target.style.backgroundColor = "black"; // Restore default background color
-  });
+  } else {
+    const randomBetween = (min, max) =>
+      min + Math.floor(Math.random() * (max - min + 1));
+    const r = randomBetween(0, 255);
+    const g = randomBetween(0, 255);
+    const b = randomBetween(0, 255);
+    event.target.style.backgroundColor = `rgb(${r},${g},${b})`;
+  }
 }
 
 function getGridSize() {
@@ -40,3 +49,11 @@ function getGridSize() {
 }
 
 editSize.addEventListener("click", getGridSize);
+
+rgb.addEventListener("click", () => {
+  defaultColorFlag = false;
+});
+
+defaultColor.addEventListener("click", () => {
+  defaultColorFlag = true;
+});
