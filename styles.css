@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
+.cell {
+  border: black 1px solid;
+  box-sizing: border-box;
+  height: 25px;
+  width: 25px;
+}
+.container > div:nth-child(17n + 1) {
+  width: 100%;
+  border: 0;
+  height: 0;
+}
